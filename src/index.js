@@ -7,7 +7,8 @@ import ErrorPage from "./routes/ErrorPage";
 import MainPage from "./routes/MainPage";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
-
+import Notes from "./routes/Notes";
+import CreateNote from "./routes/CreateNote";
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -20,7 +21,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <MainPage /> }, 
       { path: "/login", element: <Login /> },
-      { path: "/signup", element: <Register /> }
+      { path: "/signup", element: <Register /> },
+      { path: "/notes", element: <Notes /> },
+      { path: "/createNote", element: <CreateNote /> }
     ]
   },
 ]);

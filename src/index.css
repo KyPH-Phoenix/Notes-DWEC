@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+form {
+  margin-bottom: 10px;
+}
+
+form > section {
+  padding-bottom: 15px;
+}

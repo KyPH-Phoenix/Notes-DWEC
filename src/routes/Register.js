@@ -3,21 +3,22 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-    let token = localStorage.getItem("toke  n")
     const navigate = useNavigate();
 
-    const expDate = new Date(localStorage.getItem("expiration"));
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        const expDate = new Date(localStorage.getItem("expiration"));
+        
+        if (token && expDate > new Date()) {
+            navigate("/notes");
+        }
+    })
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    if (token && expDate.getTime() > new Date().getTime()) {
-        navigate("/notes");
-    }
-    
     const fetchRegister = async (event) => {
         event.preventDefault();
-        console.log(password, username);
 
         const response = await fetch("http://localhost:8081/signup", {
             method: "POST",
@@ -29,8 +30,9 @@ export default function Register() {
                 password: password
             }),
         });
-    }
 
+        if (response.status === 200) navigate("/login")
+    }
 
     return (
         <main>

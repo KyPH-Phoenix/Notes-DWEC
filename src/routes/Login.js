@@ -2,46 +2,68 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const doLogin = () => {
-    DoLogin();
-}
+export default function Login() {
+    const navigate = useNavigate();
 
-const error = "";
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        const expDate = new Date(localStorage.getItem("expiration"));
+        
+        if (token && expDate > new Date()) {
+            navigate("/notes");
+        }
+    })
 
-const DoLogin = async () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
 
+    const fetchLogin = async (event) => {
+        event.preventDefault();
 
-        const response = await fetch("http://localhost:8080/login", {
+        const response = await fetch("http://localhost:8081/login", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password }),
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
         });
-        
-        const data = response.json;
-}
 
-export default function Login() {
+        if (response.status === 200) {
+            const result = await response.json();
+
+            const token = result.token;
+            const expiration = result.expiration;
+
+            console.log(result);
+            console.log(token, expiration);
+
+            localStorage.setItem("token", token);
+            localStorage.setItem("expiration", expiration);
+
+            navigate("/notes")
+        }
+    }
 
     return (
         <main>
             <h1>Login</h1>
-            <form>
+            <form onSubmit={fetchLogin}>
                 <section>
                     <label htmlFor="username">Username: </label>
-                    <input type={"Text"} name={"username"}></input>
+                    <input name="username" type="text" id="username" placeholder="Introduce un nombre de usuario" onChange={(input) => { setUsername(input.target.value.toLowerCase().trim()); }} />
                 </section>
 
                 <section>
                     <label htmlFor="password">Password: </label>
-                    <input type={"Password"} name={"password"}></input>
+                    <input name="password" type="password" id="password" placeholder="Introduce una contraseña" onChange={(input) => { setPassword(input.target.value.trim()); }}></input>
                 </section>
 
-                <button onClick={doLogin()}>Login</button>
+                <input type="submit" value="Register"></input>
             </form>
-            
+
             <p>Don't have an account? Sign up <Link to={"/signup"}>here</Link>.</p>
         </main>
     );
