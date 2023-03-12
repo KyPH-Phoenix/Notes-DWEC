@@ -6,6 +6,7 @@ import Root from "./routes/Root";
 import ErrorPage from "./routes/ErrorPage";
 import MainPage from "./routes/MainPage";
 import Login from "./routes/Login";
+import Register from "./routes/Register";
 
 
 import './index.css';
@@ -18,7 +19,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <MainPage /> }, 
-      { path: "/login", element: <Login />}
+      { path: "/login", element: <Login /> },
+      { path: "/signup", element: <Register /> }
     ]
   },
 ]);
