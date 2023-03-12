@@ -20,3 +20,7 @@ form {
 form > section {
   padding-bottom: 15px;
 }
+
+nav {
+  margin-top: 20px;
+}

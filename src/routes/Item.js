@@ -26,7 +26,7 @@ export default function Item({ id, userId, createdAt, modifiedAt, title, body, i
             </ul>
             <button onClick={deleteNote}>Delete note</button>
 
-            <Link to={"/updateNote/" + id}>
+            <Link to={"/editNote/" + id}>
                 <button>Edit note</button>
             </Link>
         </article>

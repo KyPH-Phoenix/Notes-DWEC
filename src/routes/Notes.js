@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Item from "./Item";
+import Logout from "./Logout";
 
 export default function Notes() {
     const navigate = useNavigate();
@@ -33,7 +34,9 @@ export default function Notes() {
 
 
     return (
-        <section>
+        <main>
+            <Logout></Logout>
+
             <h1>Notes</h1>
 
             <Link to="/createNote">
@@ -41,6 +44,6 @@ export default function Notes() {
             </Link>
 
             {notes.map(Item)}
-        </section>
+        </main>
     );
 }

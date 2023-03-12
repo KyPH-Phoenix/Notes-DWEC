@@ -9,6 +9,7 @@ import Login from "./routes/Login";
 import Register from "./routes/Register";
 import Notes from "./routes/Notes";
 import CreateNote from "./routes/CreateNote";
+import EditNote from './routes/EditNote';
 
 import './index.css';
 import reportWebVitals from './reportWebVitals';
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/signup", element: <Register /> },
       { path: "/notes", element: <Notes /> },
-      { path: "/createNote", element: <CreateNote /> }
+      { path: "/createNote", element: <CreateNote /> },
+      { path: "/editNote/:noteId", element: <EditNote /> }
     ]
   },
 ]);

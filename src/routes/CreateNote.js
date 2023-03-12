@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Logout from "./Logout";
 
 export default function CreateNote() {
     const navigate = useNavigate();
@@ -37,6 +38,8 @@ export default function CreateNote() {
 
     return (
         <main>
+            <Logout></Logout>
+
             <h1>New note</h1>
 
             <form onSubmit={fetchCreateNote}>
