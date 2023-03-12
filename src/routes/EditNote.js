@@ -20,6 +20,8 @@ export default function EditNote() {
     const [isPrivate, setIsPrivtate] = useState(false);
     const { noteId } = useParams();
 
+    let ignore = false;
+
     const getNote = async () => {
         const response = await fetch(`http://localhost:8081/notes/${noteId}`, {
             method: "GET",
@@ -28,11 +30,24 @@ export default function EditNote() {
             }
         });
 
+        const result = await response.json();
+
+        if (!ignore) {
+            document.getElementById("title").value = title;
+            document.getElementById("bodyContent");    
+        }
+            
         if (response.status === 401) {
             alert("Go truck yourself");
             navigate("/notes");
         } 
+
+        return () => {
+            ignore = true;
+        }
     }
+
+    useEffect( () => { getNote(); }, [])
 
     const fetchUpdateNote = async () => {
         const response = await fetch(`http://localhost:8081/notes/${noteId}`, {
