@@ -20,51 +20,51 @@ export default function EditNote() {
     const [isPrivate, setIsPrivtate] = useState(false);
     const { noteId } = useParams();
 
-    let ignore = false;
+    useEffect(() => {
+        let ignore = false;
+        const getNote = async () => {
+            const response = await fetch(`http://localhost:8081/notes/${noteId}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            });
 
-    const getNote = async () => {
-        const response = await fetch(`http://localhost:8081/notes/${noteId}`, {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
+            const result = await response.json();
+
+            if (!ignore) {
+                document.getElementById("title").value = result.title;
+                document.getElementById("bodyContent").value = result.body;
             }
-        });
 
-        const result = await response.json();
+            if (response.status === 401) {
+                alert("Go truck yourself");
+                navigate("/notes");
+            }
 
-        if (!ignore) {
-            document.getElementById("title").value = title;
-            document.getElementById("bodyContent");    
+            return () => {
+                ignore = true;
+            }
         }
-            
-        if (response.status === 401) {
-            alert("Go truck yourself");
-            navigate("/notes");
-        } 
-
-        return () => {
-            ignore = true;
-        }
-    }
-
-    useEffect( () => { getNote(); }, [])
+        getNote();
+    }, [])
 
     const fetchUpdateNote = async () => {
         const response = await fetch(`http://localhost:8081/notes/${noteId}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("token")
+                "Authorization": "Bearer " + localStorage.getItem("token")
             },
             body: JSON.stringify({
-                "title" : title,
-                "body" : bodyContent,
-                "isPublic" : isPrivate,
-                "isVoiceNote" : false
+                "title": title,
+                "body": bodyContent,
+                "isPublic": isPrivate,
+                "isVoiceNote": false
             }),
         })
 
-        if (response === 200) navigate("/notes")
+        if (response.status === 200) navigate("/notes");
     }
 
     return (
