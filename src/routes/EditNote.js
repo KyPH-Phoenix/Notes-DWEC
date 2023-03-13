@@ -71,7 +71,7 @@ export default function EditNote() {
         <main>
             <Logout></Logout>
 
-            <h1>New note</h1>
+            <h1>Update note</h1>
 
             <form onSubmit={fetchUpdateNote}>
                 <section>
@@ -91,7 +91,7 @@ export default function EditNote() {
                     <input type={"checkbox"} name="private" onChange={(privateBox) => setIsPrivtate(privateBox.target.checked)}></input>
                 </section>
 
-                <input type={"submit"} value="Create"></input>
+                <input type={"submit"} value="Update"></input>
 
             </form>
 

@@ -61,7 +61,7 @@ export default function Login() {
                     <input name="password" type="password" id="password" placeholder="Introduce una contraseña" onChange={(input) => { setPassword(input.target.value.trim()); }}></input>
                 </section>
 
-                <input type="submit" value="Register"></input>
+                <input type="submit" value="Login"></input>
             </form>
 
             <p>Don't have an account? Sign up <Link to={"/signup"}>here</Link>.</p>
